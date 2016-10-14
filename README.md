@@ -6,6 +6,8 @@
 ######*TUnpacker* is an Android unpack tool.
 ##使用方法
 	python tunpacker.py jiagu.apk
+##工具截图
+ ![image](https://github.com/DrizzleRisk/TUnpacker/screenshot.png)
 ##必读事项
 	1.本代码仅适用于特定的加固方式 (请参考脚本内容)
 	2.本代码仅供安全研究及授权测试使用，如用于非法用途，后果自负
