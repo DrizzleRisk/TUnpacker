@@ -14,7 +14,7 @@ def Title():
     print '[>>>]        2016.10          [<<<]'
 def CheckEnv():
     Title()
-    print '[*] 初始化环境'
+    print '[*] Init env'
     global APK_PATH
     global PACKAGE_NAME
     global START_ACTIVITY
@@ -28,13 +28,13 @@ def CheckEnv():
     result = os.popen('adb shell cat /proc/cpuinfo').read()
     if result.find('ARM') != -1:
         CPU = 'armeabi'
-    print '[*] 目标环境: '+CPU
+    print '[*] Target: '+CPU
     print '[---------------------------------------]'
     os.popen('adb push ext-tools/' + CPU + '/tulib /data/local/tmp')
     os.popen('adb install ' + APK_PATH)
     print '[---------------------------------------]'
     #获取包信息备用
-    print '[*] 获取包信息'
+    print '[*] Get package info'
     nxml = open('tmp/nxml.xml','w')
     zf = zipfile.ZipFile(APK_PATH, 'r')
     content = zf.read('AndroidManifest.xml')
@@ -64,7 +64,7 @@ def Dump():
     print '[---------------------------------------]'
 
 def Compromises():
-    print '[*] 修复dex'
+    print '[*] Compromises dex'
     global APK_PATH
     global PACKAGE_NAME
     os.popen('java -jar ext-tools/baksmali.jar ' + APK_PATH + ' -o tmp/out')
@@ -77,15 +77,15 @@ def Compromises():
     #合并修复dex
     os.popen('java -jar ext-tools/smali.jar tmp/out -o result/' + PACKAGE_NAME + '.dex')
     if os.path.exists('result/' + PACKAGE_NAME + '.dex'):
-        print '[*] 脱壳修复成功 >> ' + 'result/' + PACKAGE_NAME + '.dex'
+        print '[*] Success >> ' + 'result/' + PACKAGE_NAME + '.dex'
     #清理环境
     if os.path.exists('tmp'):
         shutil.rmtree('tmp')
 def Useage():
     Title()
     print '[*] Useage: tunpacker.py jiagu.apk'
-    print '[*] 1.运行本程序前需要确保连接Android测试设备或虚拟机,并确保Android系统已root'
-    print '[*] 2.本程序仅供安全研究及授权测试使用，如用于非法用途，后果自负'
+    print '[*] 1.Before Running ,make sure a rooted Android system has been connected to your PC'
+    print '[*] 2.Only for testing,Do not be evil !'
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         Useage()
